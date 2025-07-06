@@ -80,14 +80,17 @@ export function GoalManager(props: Props) {
     }
   }
 
-  const handleEmojiSelect = (emoji: BaseEmoji, event: React.MouseEvent) => {
+  const pickEmojiOnClick = (emoji: BaseEmoji, event: React.MouseEvent) => {
     const updatedGoal: Goal = {
       ...props.goal,
-      icon: emoji.native, // Use the native emoji character
+      name: name ?? props.goal.name,                    
+    targetDate: targetDate ?? props.goal.targetDate,   
+    targetAmount: targetAmount ?? props.goal.targetAmount,
+      icon: emoji.native, 
     }
     dispatch(updateGoalRedux(updatedGoal))
     updateGoalApi(props.goal.id, updatedGoal)
-    setIsEmojiPickerOpen(false) // Close picker after selection
+    setIsEmojiPickerOpen(false) 
   }
 
   const handleIconClick = (e: React.MouseEvent) => {
@@ -142,7 +145,7 @@ export function GoalManager(props: Props) {
           )}
           {isEmojiPickerOpen && (
             <EmojiPickerContainer>
-              <EmojiPicker onClick={handleEmojiSelect} />
+              <EmojiPicker onClick={pickEmojiOnClick} />
             </EmojiPickerContainer>
           )}
         </Value>
